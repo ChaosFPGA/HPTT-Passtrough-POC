@@ -100,7 +100,33 @@ Injection Core Features:
 
 ---
 
-## ⚙️ FPGA Build
+## 🚀 Theoretical Speed Classification
+
+| Category        | Description                                   | Max Speed            | Supported Hardware               |
+| --------------- | --------------------------------------------- | -------------------- | -------------------------------- |
+| ⚪ **Basic**     | PCIe Gen1 x1 — limited performance            | ~200 MB/s           | ScreamerM2, CaptainDMA 35T       |
+| 🟡 **Standard** | PCIe Gen2 x1 — average stealth DMA capability | ~400 MB/s           | CaptainDMA 75T, Screamer         |
+| 🟠 **High**     | PCIe Gen2 x4 — optimal PCILeech performance   | **~1000–1200 MB/s** | ✅ **Nexys Video + Terasic PCA3** |
+| 🔴 **Extreme**  | PCIe Gen3 x4 — future-proof high-speed DMA    | ~2000+ MB/s¹        | ZDMAv2 (Kintex/Ultrascale)       |
+
+> ¹ Real-world Gen3 speeds currently limited by PCILeech firmware support.
+
+---
+
+## ✅ Why You’ll Reach ~1000 MB/s with Your Setup
+
+Your build matches or exceeds the ZDMA hardware specs:
+
+- **ZDMA** uses a Xilinx XC7A100T with PCIe Gen2 x4.
+- Your **Nexys Video** has a more powerful XC7A200T FPGA.
+- Using the **Terasic PCA3 (P0492)** FMC adapter with Gen3 redriver supports clean PCIe Gen2 x4 signaling.
+- With proper firmware, your design supports:
+  - High-speed DMA reads and writes.
+  - PCIe burst TLP support (essential for speeds above 500 MB/s).
+  - Compatibility with `pcileech-fpga` (version 4.17+ recommended).
+
+This positions your HPTT build solidly in the **High** performance category, capable of sustained ~1000 MB/s DMA throughput.
+
 
 ### 💻 Programming
 
